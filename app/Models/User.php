@@ -17,8 +17,10 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
+    protected $table = 'user';
+    protected $primaryKey = 'iduser';
     protected $fillable = [
-        'name',
+        'nama',
         'email',
         'password',
     ];
@@ -30,7 +32,6 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
     ];
 
     /**
@@ -41,8 +42,15 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function role_user() {
+        return $this->hasMany(RoleUser::class, 'iduser', 'iduser');
+    }
+
+    public function pemilik() {
+        return $this->hasOne(Pemilik::class, 'iduser', 'iduser');
     }
 }

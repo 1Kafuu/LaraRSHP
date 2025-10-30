@@ -1,13 +1,19 @@
 <?php
 
-use App\Http\Controllers\SiteController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PetController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SiteController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\PemilikController;
+use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\RasHewanController;
+use App\Http\Controllers\RoleUserController;
+use App\Http\Controllers\JenisHewanController;
+use App\Http\Controllers\KodeTindakanController;
+use App\Http\Controllers\KategoriKlinisController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/home', [SiteController::class, 'index'])->name('home');
+Route::get('/', [SiteController::class, 'index'])->name('home');
 
 Route::get('/organisasi', [SiteController::class, 'organisasi'])->name('organisasi');
 
@@ -16,3 +22,23 @@ Route::get('/layanan', [SiteController::class, 'layanan'])->name('layanan');
 Route::get('/login', [SiteController::class, 'login'])->name('login');
 
 Route::get('/visi', [SiteController::class, 'visi'])->name('visi');
+
+Route::get('/datauser', [UserController::class, 'getUser'])->name('datauser');
+
+Route::get('/datarole', [RoleController::class, 'getRole'])->name('datarole');
+
+Route::get('/dataroleuser', [RoleUserController::class, 'viewRoleUser'])->name('dataroleuser');
+
+Route::get('/datajenishewan', [JenisHewanController::class, 'getJenisHewan'])->name('datajenishewan');
+
+Route::get('/datapemilik', [PemilikController::class, 'getpemilik'])->name('datapemilik');
+
+Route::get('/datapet', [PetController::class, 'getPet'])->name('datapet');
+
+Route::get('/datakategori', [KategoriController::class, 'getKategori'])->name('datakategori');
+
+Route::get('/datakategoriklinis', [KategoriKlinisController::class, 'getKategoriKlinis'])->name('datakategoriklinis');
+
+Route::get('/datakodetindakan', [KodeTindakanController::class, 'getKodeTindakan'])->name('datakodetindakan');
+
+Route::get('/datarashewan', [RasHewanController::class, 'groupRas'])->name('datarashewan');
