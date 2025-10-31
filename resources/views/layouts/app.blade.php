@@ -20,7 +20,7 @@
         </div>
 
         <nav>
-            <a href="{{route('home')}}">Home</a>
+            <a href="{{route('index')}}">Home</a>
             <a href="{{route('organisasi')}}">Struktur Organisasi</a>
             <a href="{{route('layanan')}}">Layanan Umum</a>
             <a href="{{route('visi')}}">Visi Misi dan Tujuan</a>
