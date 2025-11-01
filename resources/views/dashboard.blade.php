@@ -1,3 +1,7 @@
+@extends('layouts.sidebar')
+
+@section('content')
 <div>
-    <h1>Halo, you are {{ session('user_name') }}</h1>
+    <h1>Halo, you are {{ session('user.name') }}</h1>
 </div>
+@endsection

@@ -16,7 +16,7 @@ class verifyRole
      */
     public function handle(Request $request, Closure $next, ...$role): Response
     {   
-        if (Auth::check() && (in_array(session('user_role'), $role) || in_array('All',  $role))) {
+        if (Auth::check() && (in_array(session('user.role'), $role) || in_array('All',  $role))) {
             return $next($request);
         }
         else {

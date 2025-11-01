@@ -35,7 +35,7 @@ Route::middleware(['akses:1'])->group(function () {
     Route::get('/datarashewan', [RasHewanController::class, 'groupRas'])->name('datarashewan');
 });
 
-Route::middleware(['akses:2'])->group(function () {
+Route::middleware(['akses:4'])->group(function () {
     Route::get('/datapemilik', [PemilikController::class, 'getpemilik'])->name('datapemilik');
     Route::get('/datapet', [PetController::class, 'getPet'])->name('datapet');
 });

@@ -12,31 +12,11 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
 
     use AuthenticatesUsers;
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
     protected $redirectTo = '/home';
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
@@ -84,13 +64,13 @@ class LoginController extends Controller
 
         Auth::login($user);
 
-        $request->session()->put([
-            'user_id' => $user->iduser,
-            'user_name' => $user-> nama,
-            'user_email' => $user->email,
-            'user_role' => $user->role_user[0]->idrole ?? 'user',
-            'user_role_name' => $namaRole->nama_role ?? 'User',
-            'user_status' => $user->role_user[0]->status ?? 'active'
+        $request->session()->put('user', [
+            'id' => $user->iduser,
+            'name' => $user-> nama,
+            'email' => $user->email,
+            'role' => $user->role_user[0]->idrole ?? 'user',
+            'role_name' => $namaRole->nama_role ?? 'User',
+            'status' => $user->role_user[0]->status ?? 'active'
         ]);
 
         return redirect()->intended('/home')->with('success', 'Login Berhasil');
