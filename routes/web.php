@@ -16,7 +16,7 @@ use App\Http\Controllers\KategoriKlinisController;
 
 Route::get('/', [SiteController::class, 'index'])->name('index');
 
-Route::get('dashboard', [SiteController::class, 'dashboard'])->name('dashboard');
+Route::get('/dashboard', [SiteController::class, 'dashboard'])->name('dashboard');
 
 
 Route::get('/organisasi', [SiteController::class, 'organisasi'])->name('organisasi');

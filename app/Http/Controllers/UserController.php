@@ -9,6 +9,6 @@ class UserController extends Controller
 {
     public function getUser() {
         $result = User::all();
-        return view('admin.datauser', compact('result'));
+        return view('livewire.datauser', compact('result'));
     }
 }

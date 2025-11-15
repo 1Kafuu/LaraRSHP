@@ -18,9 +18,10 @@
         <!-- Header -->
         <div class="flex justify-between items-center p-5 border-b border-gray-100">
             <h5 class="text-lg font-semibold text-gray-800 mb-0">User List</h5>
-            <button command="show-modal" commandfor="dialog" class="rounded-md bg-white/10 px-2.5 py-1.5 text-sm font-semibold text-white inset-ring inset-ring-white/5 hover:bg-white/20">Open dialog</button>
-            
-            <button wire:click="openModal('create')"
+
+            @include('livewire.user-modal')
+
+            <button command="show-modal" commandfor="dialog"
                 class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium px-4 py-2 rounded-full shadow-sm transition-colors flex items-center gap-2">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
