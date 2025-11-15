@@ -16,6 +16,9 @@ use App\Http\Controllers\KategoriKlinisController;
 
 Route::get('/', [SiteController::class, 'index'])->name('index');
 
+Route::get('dashboard', [SiteController::class, 'dashboard'])->name('dashboard');
+
+
 Route::get('/organisasi', [SiteController::class, 'organisasi'])->name('organisasi');
 
 Route::get('/layanan', [SiteController::class, 'layanan'])->name('layanan');
@@ -35,7 +38,7 @@ Route::middleware(['akses:1'])->group(function () {
     Route::get('/datarashewan', [RasHewanController::class, 'groupRas'])->name('datarashewan');
 });
 
-Route::middleware(['akses:4'])->group(function () {
+Route::middleware(['akses:1,4'])->group(function () {
     Route::get('/datapemilik', [PemilikController::class, 'getpemilik'])->name('datapemilik');
     Route::get('/datapet', [PetController::class, 'getPet'])->name('datapet');
 });
