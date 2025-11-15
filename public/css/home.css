@@ -1,0 +1,257 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: #fff;
+  color: #333;
+}
+
+header {
+  background-color: #002984;
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 10px;
+  text-indent: 10px;
+}
+
+.logo h1 {
+  color: white;
+  margin-bottom: auto;
+}
+
+header img {
+  height: 50px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+  font-weight: bold;
+}
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px;
+  min-height: 100vh;
+  text-align: center;
+}
+
+.menu {
+  max-width: 100%;
+}
+
+.login {
+  padding: 5px 5px;
+  background-color: #ffeb3b;
+}
+
+.login:hover {
+  background-color: #c9b820f7;
+}
+
+.login a {
+  color: black;
+}
+
+.hero {
+  background-color: #fbc02d;
+  padding: 20px;
+  text-align: center;
+}
+
+.hero img {
+  max-width: 600px;
+}
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.main {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 20px;
+  padding-top: 50px;
+}
+
+.left-content {
+  flex: 1;
+  min-width: 300px;
+  max-width: 1100px;
+}
+
+.left-content p {
+  text-align: justify;
+  align-content: center;
+  padding-left: 5px;
+}
+
+.right-content {
+  flex: 1;
+  min-width: 300px;
+}
+
+iframe {
+  width: 100%;
+  height: 250px;
+  border-radius: 8px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 20px;
+  margin: 10px 5px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: 0.3s ease;
+  border: none;
+}
+
+.login {
+  color: #000;
+}
+
+.btn-yellow {
+  background-color: #ffeb3b;
+  color: #000;
+}
+
+.btn-yellow:hover {
+  background-color: #fdd835;
+}
+
+.btn-blue {
+  background-color: #0288d1;
+  color: white;
+}
+
+.btn-blue:hover {
+  background-color: #0277bd;
+}
+
+.news-section {
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px;
+}
+
+.news-section h2 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.news-slider {
+  display: flex;
+  overflow-x: auto;
+  gap: 15px;
+  scroll-behavior: smooth;
+  padding-bottom: 10px;
+}
+
+.news-slider::-webkit-scrollbar {
+  height: 8px;
+}
+
+.news-slider::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+.news-card {
+  flex: 0 0 auto;
+  width: 280px;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.news-card:hover {
+  transform: translateY(-5px);
+}
+
+.news-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.news-card p {
+  padding: 10px;
+  font-size: 14px;
+}
+
+footer {
+  background-color: #002984;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  margin-top: 30px;
+}
+
+/* Struktur Organisasi */
+.org-chart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.level {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+.person {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  min-width: 200px;
+  transition: transform 0.3s;
+}
+.person:hover {
+  transform: translateY(-5px);
+}
+.person img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+.person h3 {
+  margin: 5px 0 2px;
+  font-size: 18px;
+  color: #002984;
+}
+.person p {
+  margin: 0;
+  font-size: 14px;
+  color: #555;
+}
+/* Garis penghubung */
+.line {
+  width: 2px;
+  background: #ccc;
+  height: 20px;
+  margin: auto;
+}
