@@ -15,7 +15,7 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
-    // protected $redirectTo = '/home';
+    protected $redirectTo = '/home';
 
     public function __construct()
     {
@@ -73,7 +73,7 @@ class LoginController extends Controller
             'status' => $user->role_user[0]->status ?? 'active'
         ]);
 
-        return redirect('/home')->with('success', 'Login Berhasil');
+        return redirect()->intended('/home')->with('success', 'Login Berhasil');
     }
 
     public function logout(Request $request) {

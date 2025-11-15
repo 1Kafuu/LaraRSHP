@@ -161,7 +161,7 @@
         <div class="items-center justify-center hidden w-full bg-indigo-950 lg:flex lg:w-1/2 dark:bg-white/5">
             <div class="flex flex-col items-center max-w-xs text-center">
                 <a href="{{ url('/') }}" class="block mb-4">
-                    <img src="{{ asset("image/logo_unair.png") }}" alt="Logo" class="h-12">
+                    <img src="{{ asset('image/logo_unair.png') }}" alt="Logo" class="h-12">
                 </a>
                 <p class="text-gray-400 dark:text-white/60">
                     RSHP UNAIR

@@ -1,159 +1,100 @@
 import './bootstrap';
-// import "jsvectormap/dist/jsvectormap.min.css";
-// import "flatpickr/dist/flatpickr.min.css";
-// import "dropzone/dist/dropzone.css";
-// import "../css/app.css";
 
-// import Alpine from 'alpinejs'
-// import flatpickr from "flatpickr";
-// import Dropzone from "dropzone";
+// Search Functionality
+function initializeSearch() {
+    const searchInput = document.getElementById("search-input");
+    const searchButton = document.getElementById("search-button");
 
-// import chart01 from "./components/charts/chart-01";
-// import chart02 from "./components/charts/chart-02";
-// import chart03 from "./components/charts/chart-03";
-// import map01 from "./components/map-01";
-// import "./components/calendar-init.js";
-// import "./components/image-resize";
+    // Check if elements exist
+    if (!searchInput || !searchButton) {
+        return; // Silent return - element tidak ada di halaman ini
+    }
 
+    // Function to focus the search input
+    function focusSearchInput() {
+        searchInput.focus();
+        searchInput.select();
+    }
 
-// Init flatpickr
-flatpickr(".datepicker", {
-  mode: "range",
-  static: true,
-  monthSelectorType: "static",
-  dateFormat: "M j, Y",
-  defaultDate: [new Date().setDate(new Date().getDate() - 6), new Date()],
-  prevArrow:
-    '<svg class="stroke-current" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.25 6L9 12.25L15.25 18.5" stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-  nextArrow:
-    '<svg class="stroke-current" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.75 19L15 12.75L8.75 6.5" stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-  onReady: (selectedDates, dateStr, instance) => {
-    // eslint-disable-next-line no-param-reassign
-    instance.element.value = dateStr.replace("to", "-");
-    const customClass = instance.element.getAttribute("data-class");
-    instance.calendarContainer.classList.add(customClass);
-  },
-  onChange: (selectedDates, dateStr, instance) => {
-    // eslint-disable-next-line no-param-reassign
-    instance.element.value = dateStr.replace("to", "-");
-  },
-});
-
-// Init Dropzone
-const dropzoneArea = document.querySelectorAll("#demo-upload");
-
-if (dropzoneArea.length) {
-  let myDropzone = new Dropzone("#demo-upload", { url: "/file/post" });
-}
-
-// Document Loaded
-document.addEventListener("DOMContentLoaded", () => {
-  chart01();
-  chart02();
-  chart03();
-  map01();
-});
-
-// Get the current year
-const year = document.getElementById("year");
-if (year) {
-  year.textContent = new Date().getFullYear();
-}
-
-// For Copy//
-document.addEventListener("DOMContentLoaded", () => {
-  const copyInput = document.getElementById("copy-input");
-  if (copyInput) {
-    // Select the copy button and input field
-    const copyButton = document.getElementById("copy-button");
-    const copyText = document.getElementById("copy-text");
-    const websiteInput = document.getElementById("website-input");
-
-    // Event listener for the copy button
-    copyButton.addEventListener("click", () => {
-      // Copy the input value to the clipboard
-      navigator.clipboard.writeText(websiteInput.value).then(() => {
-        // Change the text to "Copied"
-        copyText.textContent = "Copied";
-
-        // Reset the text back to "Copy" after 2 seconds
-        setTimeout(() => {
-          copyText.textContent = "Copy";
-        }, 2000);
-      });
+    // Click event for the search button
+    searchButton.addEventListener("click", function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        focusSearchInput();
     });
-  }
+
+    // Keyboard event listener
+    function handleKeyDown(event) {
+        // Don't trigger if user is typing in inputs/textarea
+        if (isUserTypingInInput(document.activeElement)) {
+            return;
+        }
+
+        // Cmd+K (Mac) or Ctrl+K (Windows/Linux)
+        if ((event.metaKey || event.ctrlKey) && event.key === "k") {
+            event.preventDefault();
+            event.stopPropagation();
+            focusSearchInput();
+        }
+        
+        // "/" key to focus search
+        else if (event.key === "/" && !event.ctrlKey && !event.metaKey) {
+            event.preventDefault();
+            event.stopPropagation();
+            focusSearchInput();
+        }
+        
+        // Escape key to blur search input
+        else if (event.key === "Escape" && document.activeElement === searchInput) {
+            searchInput.blur();
+        }
+    }
+
+    // Helper function to check if user is typing in form elements
+    function isUserTypingInInput(element) {
+        if (!element) return false;
+        const tagName = element.tagName.toLowerCase();
+        const inputTypes = ['input', 'textarea', 'select'];
+        
+        if (element.isContentEditable) return true;
+        
+        if (inputTypes.includes(tagName)) {
+            if (tagName === 'input') {
+                const type = element.type.toLowerCase();
+                // Allow shortcut for search inputs
+                if (type === 'search' || type === 'text') {
+                    return false;
+                }
+            }
+            return true;
+        }
+        
+        return false;
+    }
+
+    // Update the button text based on platform
+    function updateShortcutButton() {
+        const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+        
+        if (isMac) {
+            searchButton.innerHTML = '<span>⌘</span><span>K</span>';
+        } else {
+            searchButton.innerHTML = '<span>Ctrl</span><span>K</span>';
+        }
+    }
+
+    // Add keyboard event listener
+    document.addEventListener("keydown", handleKeyDown);
+
+    // Initialize
+    updateShortcutButton();
+}
+
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+    initializeSearch();
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-  const searchInput = document.getElementById("search-input");
-  const searchButton = document.getElementById("search-button");
-
-  // Check if elements exist
-  if (!searchInput || !searchButton) {
-    console.warn('Search elements not found');
-    return;
-  }
-
-  // Function to focus the search input
-  function focusSearchInput() {
-    searchInput.focus();
-    // Optional: Select all text for better UX
-    searchInput.select();
-  }
-
-  // Click event for the search button (⌘K button)
-  searchButton.addEventListener("click", function(event) {
-    event.preventDefault(); // Prevent form submission
-    focusSearchInput();
-  });
-
-  // Single keyboard event listener for all shortcuts
-  document.addEventListener("keydown", function (event) {
-    // Don't trigger if user is typing in inputs/textarea
-    if (isUserTypingInInput(document.activeElement)) {
-      return;
-    }
-
-    // Cmd+K (Mac) or Ctrl+K (Windows/Linux)
-    if ((event.metaKey || event.ctrlKey) && event.key === "k") {
-      event.preventDefault();
-      focusSearchInput();
-    }
-    
-    // "/" key to focus search
-    else if (event.key === "/") {
-      event.preventDefault();
-      focusSearchInput();
-    }
-    
-    // Escape key to blur search input
-    else if (event.key === "Escape" && document.activeElement === searchInput) {
-      searchInput.blur();
-    }
-  });
-
-  // Helper function to check if user is typing in form elements
-  function isUserTypingInInput(element) {
-    if (!element) return false;
-    const tagName = element.tagName;
-    const inputTypes = ['input', 'textarea', 'select'];
-    return inputTypes.includes(tagName.toLowerCase()) || element.isContentEditable;
-  }
-
-  // Update the button text based on platform
-  function updateShortcutButton() {
-    const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
-    const button = searchButton;
-    
-    if (isMac) {
-      button.innerHTML = '<span>⌘</span><span>K</span>';
-    } else {
-      button.innerHTML = '<span>Ctrl</span><span>K</span>';
-    }
-  }
-
-  // Initialize
-  updateShortcutButton();
-});
-
+// // Re-initialize jika menggunakan Turbolinks/Livewire
+// document.addEventListener('turbolinks:load', initializeSearch);
+// document.addEventListener('livewire:load', initializeSearch);

@@ -16,7 +16,7 @@ use App\Http\Controllers\KategoriKlinisController;
 
 Route::get('/', [SiteController::class, 'index'])->name('index');
 
-Route::get('/dashboard', [SiteController::class, 'dashboard'])->name('dashboard');
+Route::get('dashboard', [SiteController::class, 'dashboard'])->name('dashboard');
 
 
 Route::get('/organisasi', [SiteController::class, 'organisasi'])->name('organisasi');
@@ -26,6 +26,12 @@ Route::get('/layanan', [SiteController::class, 'layanan'])->name('layanan');
 Route::get('/login', [SiteController::class, 'login'])->name('login');
 
 Route::get('/visi', [SiteController::class, 'visi'])->name('visi');
+
+Route::post('createUser', [UserController::class, 'createUser'])->name('createUser');
+
+Route::get('getUserbyId/{id}', [UserController::class, 'getUserbyId'])->name('getUserbyId');
+
+Route::put('updateUser/{id}', [UserController::class, 'updateUser'])->name('updateUser');
 
 Route::middleware(['akses:1'])->group(function () {
     Route::get('/datauser', [UserController::class, 'getUser'])->name('datauser');

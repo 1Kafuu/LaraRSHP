@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="{{ asset('image/logo unair.png') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('image/logo_unair.png') }}">
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
     @yield('styles')
     <title>@yield('title')</title>
@@ -15,7 +15,7 @@
     <!-- HEADER -->
     <header>
         <div class="logo">
-            <img src="{{ asset('image/logo unair.png') }}" alt="logo-rshp">
+            <img src="{{ asset('image/logo_unair.png') }}" alt="logo-rshp">
             <h1>UNAIR</h1>
         </div>
 

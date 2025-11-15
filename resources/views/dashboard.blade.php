@@ -5,6 +5,7 @@
 @endpush
 
 @section('path', 'Dashboard')
+
 @section('title', 'Dashboard')
 
 @push('scripts')

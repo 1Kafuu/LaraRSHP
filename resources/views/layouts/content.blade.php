@@ -7,22 +7,16 @@
     content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
   @vite(['resources/css/app.css'])
 
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
-
   <!-- Alpine Plugins -->
   <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
 
   <!-- Alpine Core -->
-  {{-- <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script> --}}
-
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
   <title>
     @yield('title')
   </title>
-  @livewireStyles
 </head>
 
 <body
@@ -73,7 +67,7 @@
     <!-- ===== Content Area End ===== -->
   </div>
   <!-- ===== Page Wrapper End ===== -->
-  @livewireScripts
-  @stack('script')
+  @stack('scripts')
 </body>
+
 </html>
