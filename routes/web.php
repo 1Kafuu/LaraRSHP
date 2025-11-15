@@ -27,12 +27,6 @@ Route::get('/login', [SiteController::class, 'login'])->name('login');
 
 Route::get('/visi', [SiteController::class, 'visi'])->name('visi');
 
-Route::post('createUser', [UserController::class, 'createUser'])->name('createUser');
-
-Route::get('getUserbyId/{id}', [UserController::class, 'getUserbyId'])->name('getUserbyId');
-
-Route::put('updateUser/{id}', [UserController::class, 'updateUser'])->name('updateUser');
-
 Route::middleware(['akses:1'])->group(function () {
     Route::get('/datauser', [UserController::class, 'getUser'])->name('datauser');
     Route::get('/datarole', [RoleController::class, 'getRole'])->name('datarole');
@@ -42,6 +36,10 @@ Route::middleware(['akses:1'])->group(function () {
     Route::get('/datakategoriklinis', [KategoriKlinisController::class, 'getKategoriKlinis'])->name('datakategoriklinis');
     Route::get('/datakodetindakan', [KodeTindakanController::class, 'getKodeTindakan'])->name('datakodetindakan');
     Route::get('/datarashewan', [RasHewanController::class, 'groupRas'])->name('datarashewan');
+    Route::post('createUser', [UserController::class, 'createUser'])->name('createUser');
+    Route::get('getUserbyId/{id}', [UserController::class, 'getUserbyId'])->name('getUserbyId');
+    Route::delete('deleteUser/{id}', [UserController::class, 'deleteUser'])->name('deleteUser');
+    Route::put('updateUser/{id}', [UserController::class, 'updateUser'])->name('updateUser');
 });
 
 Route::middleware(['akses:1,4'])->group(function () {

@@ -52,4 +52,11 @@ class UserController extends Controller
             return redirect()->route('datauser')->with('error', 'Gagal mengupdate user');
         }
     }
+
+    public function deleteUser($id) {
+    $user = User::findOrFail($id);
+    $user->delete();
+    
+    return redirect()->route('datauser')->with('success', 'User berhasil dihapus');
+}
 }
