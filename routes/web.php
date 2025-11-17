@@ -40,6 +40,14 @@ Route::middleware(['akses:1'])->group(function () {
     Route::get('getUserbyId/{id}', [UserController::class, 'getUserbyId'])->name('getUserbyId');
     Route::delete('deleteUser/{id}', [UserController::class, 'deleteUser'])->name('deleteUser');
     Route::put('updateUser/{id}', [UserController::class, 'updateUser'])->name('updateUser');
+    Route::post('createRole', [RoleController::class, 'createRole'])->name('createRole');
+    Route::delete('deleteRole/{id}', [RoleController::class, 'deleteRole'])->name('deleteRole');
+    Route::get('getRolebyId/{id}', [RoleController::class, 'getRolebyId'])->name('getRolebyId');
+    Route::put('updateRole/{id}', [RoleController::class, 'updateRole'])->name('updateRole');
+    Route::post('createPemilik', [PemilikController::class, 'createPemilik'])->name('createPemilik');
+    Route::delete('deletePemilik/{id}', [PemilikController::class, 'deletePemilik'])->name('deletePemilik');
+    Route::get('getPemilikbyId/{id}', [PemilikController::class, 'getPemilikbyId'])->name('getPemilikbyId');
+    Route::put('updatePemilik/{id}', [PemilikController::class, 'updatePemilik'])->name('updatePemilik');
 });
 
 Route::middleware(['akses:1,4'])->group(function () {

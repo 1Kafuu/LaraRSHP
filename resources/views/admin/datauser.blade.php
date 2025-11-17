@@ -120,9 +120,7 @@
     </div>
 @endsection
 
-@include('components.user-update')
-
-@include('components.user-modal')
+<x-user-modal />
 
 @push('scripts')
     <script>
@@ -141,7 +139,7 @@
 
             // Trigger animation
             setTimeout(() => {
-                modalContent.classList.remove('scale-95', 'opacity-0');
+                modalContent.classList.remove('hidden','scale-95', 'opacity-0');
                 modalContent.classList.add('scale-100', 'opacity-100');
             }, 10);
 

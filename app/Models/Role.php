@@ -10,6 +10,8 @@ class Role extends Model
     protected $primaryKey = 'idrole';
     protected $fillable = ['nama_role'];
 
+    public $timestamps = false;
+
 
     public function role_user() {
         return $this->hasMany(RoleUser::class, 'idrole', 'idrole');        
