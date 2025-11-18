@@ -12,6 +12,6 @@ class JenisHewan extends Model
     protected $fillable = ['nama_jenis_hewan'];
 
     public function rashewan() {
-        return $this->hasMany(RasHewan::class, 'iduser', 'iduser');
+        return $this->hasMany(RasHewan::class, 'idjenis_hewan', 'idjenis_hewan');
     }
 }

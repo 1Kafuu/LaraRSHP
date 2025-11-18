@@ -48,6 +48,10 @@ Route::middleware(['akses:1'])->group(function () {
     Route::delete('deletePemilik/{id}', [PemilikController::class, 'deletePemilik'])->name('deletePemilik');
     Route::get('getPemilikbyId/{id}', [PemilikController::class, 'getPemilikbyId'])->name('getPemilikbyId');
     Route::put('updatePemilik/{id}', [PemilikController::class, 'updatePemilik'])->name('updatePemilik');
+    Route::post('createPet', [PetController::class, 'createPet'])->name('createPet');
+    Route::delete('deletePet/{id}', [PetController::class, 'deletePet'])->name('deletePet');
+    Route::get('getPetbyId/{id}', [PetController::class, 'getPetbyId'])->name('getPetbyId');
+    Route::put('updatePet/{id}', [PetController::class, 'updatePet'])->name('updatePet');
 });
 
 Route::middleware(['akses:1,4'])->group(function () {
