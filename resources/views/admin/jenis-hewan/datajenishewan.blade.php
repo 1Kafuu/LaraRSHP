@@ -17,7 +17,7 @@
             <div class="flex justify-between items-center p-5 border-b border-gray-100">
                 <h5 class="text-lg font-semibold text-gray-800 mb-0">Jenis Hewan List</h5>
                 <button 
-                    onclick="addJenisHewan()" 
+                    command="show-modal" commandfor="create-jenis"
                     class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium px-4 py-2 rounded-full shadow-sm transition-colors flex items-center gap-2">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
@@ -25,6 +25,41 @@
                     Add Jenis Hewan
                 </button>
             </div>
+
+            @if(session('success') || session('error'))
+                <div id="flash-message"
+                    class="mb-6 mx-3 p-4 rounded-lg shadow-sm border {{ session('error') ? 'bg-red-50 border-red-200' : 'bg-green-50 border-green-200' }}">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0">
+                            @if(session('error'))
+                                <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            @else
+                                <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            @endif
+                        </div>
+                        <div class="ml-3 flex-1">
+                            <p class="text-sm font-medium {{ session('error') ? 'text-red-800' : 'text-green-800' }}">
+                                {{ session('error') ?? session('success') }}
+                            </p>
+                        </div>
+                        <button onclick="document.getElementById('flash-message').remove()"
+                            class="ml-3 text-gray-400 hover:text-gray-600">
+                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            @endif
 
             <!-- Table -->
             <div class="overflow-x-auto">
@@ -58,7 +93,7 @@
                                         <!-- Edit Button -->
                                         <button
                                             type="button"
-                                            onclick="editJenisHewan({{ $row->idjenis_hewan }})"
+                                            onclick="openEditModal({{ $row->idjenis_hewan }})"
                                             class="w-8 h-8 rounded-full border border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white transition-all duration-200 flex items-center justify-center"
                                             title="Edit Jenis Hewan">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -69,17 +104,20 @@
                                         </button>
 
                                         <!-- Delete Button -->
-                                        <button
-                                            type="button"
-                                            onclick="deleteJenisHewan({{ $row->idjenis_hewan }})"
-                                            class="w-8 h-8 rounded-full border border-red-600 text-red-600 hover:bg-red-600 hover:text-white transition-all duration-200 flex items-center justify-center"
-                                            title="Delete Jenis Hewan">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
-                                                </path>
-                                            </svg>
-                                        </button>
+                                        <form action="{{ route('deleteJenisHewan', ['id' => $row->idjenis_hewan]) }}" method="POST" class="inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                class="w-8 h-8 rounded-full border border-red-600 text-red-600 hover:bg-red-600 hover:text-white transition-colors flex items-center justify-center"
+                                                title="Delete"
+                                                onclick="return confirm('Apakah Anda yakin ingin menghapus user ini?')">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                                                    </path>
+                                                </svg>
+                                            </button>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>
@@ -103,3 +141,85 @@
         </div>
     </div>
 @endsection
+
+<x-jenis-modal />
+
+@push('scripts')
+    <script>
+        function openEditModal(jenisId) {
+
+            const modal = document.getElementById('updateModal');
+            const modalContent = document.getElementById('modalContent');
+
+            if (!modal) {
+                return;
+            }
+
+            // Show modal
+            modal.style.display = 'flex';
+            modal.classList.remove('hidden');
+
+            // Trigger animation
+            setTimeout(() => {
+                modalContent.classList.remove('hidden','scale-95', 'opacity-0');
+                modalContent.classList.add('scale-100', 'opacity-100');
+            }, 10);
+
+            // Fetch user data
+            fetch(`/getJenisHewanbyId/${jenisId}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok: ' + response.status);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data);
+                    // Fill form with user data
+                    document.getElementById('edit_idjenis').value = data.idjenis_hewan;
+                    document.getElementById('nama_update').value = data.nama_jenis_hewan;
+                    
+
+                    // Update form action
+                    const form = document.getElementById('updateForm');
+                    form.action = `/updateJenisHewan/${data.idjenis_hewan}`;
+                })
+                .catch(error => {
+                    console.error('Fetch error:', error);
+                    alert('Gagal memuat data user: ' + error.message);
+                });
+        }
+
+        function closeUpdateModal() {
+            const modal = document.getElementById('updateModal');
+            const modalContent = document.getElementById('modalContent');
+
+            if (modal) {
+                // Add closing animation
+                modalContent.classList.remove('scale-100', 'opacity-100');
+                modalContent.classList.add('scale-95', 'opacity-0');
+
+                // Hide modal after animation
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    modal.classList.add('hidden');
+                }, 200);
+            }
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('click', function (event) {
+            const modal = document.getElementById('updateModal');
+            if (event.target === modal) {
+                closeUpdateModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                closeUpdateModal();
+            }
+        });
+    </script>
+@endpush

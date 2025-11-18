@@ -112,8 +112,8 @@
         id="modalContent">
         <!-- Modal Header -->
         <div class="px-6 py-4 border-b border-gray-200">
-            <h3 class="text-lg font-semibold text-gray-900">Update Pemilik</h3>
-            <p class="mt-1 text-sm text-gray-500">Perbarui informasi pemilik akun ini.</p>
+            <h3 class="text-lg font-semibold text-gray-900">Update Pet</h3>
+            <p class="mt-1 text-sm text-gray-500">Perbarui informasi hewan peliharaan ini.</p>
         </div>
 
         <!-- Modal Body -->

@@ -52,6 +52,21 @@ Route::middleware(['akses:1'])->group(function () {
     Route::delete('deletePet/{id}', [PetController::class, 'deletePet'])->name('deletePet');
     Route::get('getPetbyId/{id}', [PetController::class, 'getPetbyId'])->name('getPetbyId');
     Route::put('updatePet/{id}', [PetController::class, 'updatePet'])->name('updatePet');
+    Route::post('createJenisHewan', [JenisHewanController::class, 'createJenisHewan'])->name('createJenisHewan');
+    Route::delete('deleteJenisHewan/{id}', [JenisHewanController::class, 'deleteJenisHewan'])->name('deleteJenisHewan');
+    Route::get('getJenisHewanbyId/{id}', [JenisHewanController::class, 'getJenisHewanbyId'])->name('getJenisHewanbyId');
+    Route::put('updateJenisHewan/{id}', [JenisHewanController::class, 'updateJenisHewan'])->name('updateJenisHewan');
+    Route::post('createKategori', [KategoriController::class, 'createKategori'])->name('createKategori');
+    Route::delete('deleteKategori/{id}', [KategoriController::class, 'deleteKategori'])->name('deleteKategori');
+    Route::get('getKategoribyId/{id}', [KategoriController::class, 'getKategoribyId'])->name('getKategoribyId');
+    Route::put('updateKategori/{id}', [KategoriController::class, 'updateKategori'])->name('updateKategori');
+    Route::post('createKategoriKlinis', [KategoriKlinisController::class, 'createKategoriKlinis'])->name('createKategoriKlinis');
+    Route::delete('deleteKategoriKlinis/{id}', [KategoriKlinisController::class, 'deleteKategoriKlinis'])->name('deleteKategoriKlinis');
+    Route::get('getKategoriKlinisbyId/{id}', [KategoriKlinisController::class, 'getKategoriKlinisbyId'])->name('getKategoriKlinisbyId');
+    Route::put('updateKategoriKlinis/{id}', [KategoriKlinisController::class, 'updateKategoriKlinis'])->name('updateKategoriKlinis');
+    Route::post('createKodeTindakan', [KodeTindakanController::class, 'createKodeTindakan'])->name('createKodeTindakan');
+    Route::delete('deleteKodeTindakan/{id}', [KodeTindakanController::class, 'deleteKodeTindakan'])->name('deleteKodeTindakan');
+    Route::get('getKodeTindakanbyId/{id}', [KodeTindakanController::class, 'getKodeTindakanbyId'])->name('getKodeTindakanbyId');
 });
 
 Route::middleware(['akses:1,4'])->group(function () {
