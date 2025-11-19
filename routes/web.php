@@ -64,9 +64,10 @@ Route::middleware(['akses:1'])->group(function () {
     Route::delete('deleteKategoriKlinis/{id}', [KategoriKlinisController::class, 'deleteKategoriKlinis'])->name('deleteKategoriKlinis');
     Route::get('getKategoriKlinisbyId/{id}', [KategoriKlinisController::class, 'getKategoriKlinisbyId'])->name('getKategoriKlinisbyId');
     Route::put('updateKategoriKlinis/{id}', [KategoriKlinisController::class, 'updateKategoriKlinis'])->name('updateKategoriKlinis');
-    Route::post('createKodeTindakan', [KodeTindakanController::class, 'createKodeTindakan'])->name('createKodeTindakan');
-    Route::delete('deleteKodeTindakan/{id}', [KodeTindakanController::class, 'deleteKodeTindakan'])->name('deleteKodeTindakan');
+    Route::post('createKode', [KodeTindakanController::class, 'createKode'])->name('createKode');
+    Route::delete('deleteKode/{id}', [KodeTindakanController::class, 'deleteKode'])->name('deleteKode');
     Route::get('getKodeTindakanbyId/{id}', [KodeTindakanController::class, 'getKodeTindakanbyId'])->name('getKodeTindakanbyId');
+    Route::put('updateKode/{id}', [KodeTindakanController::class, 'updateKode'])->name('updateKode');
 });
 
 Route::middleware(['akses:1,4'])->group(function () {

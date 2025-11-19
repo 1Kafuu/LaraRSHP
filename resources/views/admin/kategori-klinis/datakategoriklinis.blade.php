@@ -178,8 +178,7 @@
                     // Fill form with user data
                     document.getElementById('edit_idkategori').value = data.idkategori_klinis;
                     document.getElementById('nama_update').value = data.nama_kategori_klinis;
-                    
-
+                
                     // Update form action
                     const form = document.getElementById('updateForm');
                     form.action = `/updateKategoriKlinis/${data.idkategori_klinis}`;
