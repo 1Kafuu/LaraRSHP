@@ -71,6 +71,10 @@ Route::middleware(['akses:1'])->group(function () {
     Route::get('getRoleUserbyId/{id}', [RoleUserController::class, 'getRoleUserbyId'])->name('getRoleUserbyId');
     Route::put('updateRoleUser/{id}', [RoleUserController::class, 'updateRoleUser'])->name('updateRoleUser');
     Route::delete('deleteRoleUser/{id}', [RoleUserController::class, 'deleteRoleUser'])->name('deleteRoleUser');
+    Route::post('createRas', [RasHewanController::class, 'createRas'])->name('createRas');
+    Route::get('getRasbyId/{id}', [RasHewanController::class, 'getRasbyId'])->name('getRasbyId');
+    Route::put('updateRas/{id}', [RasHewanController::class, 'updateRas'])->name('updateRas');
+    Route::delete('deleteRas/{id}', [RasHewanController::class, 'deleteRas'])->name('deleteRas');
 });
 
 Route::middleware(['akses:1,4'])->group(function () {

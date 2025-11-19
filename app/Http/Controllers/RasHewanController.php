@@ -8,15 +8,20 @@ use Illuminate\Http\Request;
 
 class RasHewanController extends Controller
 {
-    public function getRas()
-    {
-        $result = RasHewan::with('jenishewan')->get();
-        return $result;
+    public function getRas() {
+        $rashewan = RasHewan::all();
+        return $rashewan;
+    }
+
+    public function getRasById($id) {
+        $rashewan = RasHewan::findOrFail($id);
+        return response()->json($rashewan);
     }
 
     public function groupRas()
     {
-        // Ambil semua jenis hewan beserta ras-nya (termasuk yang tidak punya ras)
+        $rasHewan = $this->getRas();
+        
         $jenisHewan = JenisHewan::with('rashewan')->get();
 
         $groupRas = [];
@@ -38,6 +43,46 @@ class RasHewanController extends Controller
             }
         }
 
-        return view('admin.ras.datarashewan', compact('groupRas'));
+        return view('admin.ras.datarashewan', compact('groupRas', 'rasHewan'));
+    }
+
+    public function createRas(Request $request) {
+        $validated = $request->validate([
+            'idjenis_hewan' => 'required',
+            'nama_ras' => 'required|string|max:255',
+        ]);
+
+        $check = RasHewan::where('nama_ras', $validated['nama_ras'])
+            ->exists();
+
+        if ($check) {
+            return redirect()->back()->withInput()->with('error', 'Ras Hewan sudah ada');
+        }
+
+        $ras = RasHewan::create([
+            'idjenis_hewan' => $validated['idjenis_hewan'],
+            'nama_ras' => $validated['nama_ras'],
+        ]);
+
+        return redirect()->route('datarashewan')->with('success', 'Ras Hewan berhasil ditambahkan');
+    }
+
+    public function deleteRas($id) {
+        $ras = RasHewan::findOrFail($id);
+        $ras->delete();
+        return redirect()->route('datarashewan')->with('success', 'Ras Hewan berhasil dihapus');
+    }
+
+    public function updateRas($id, Request $request) {
+        $validated = $request->validate([
+            'nama_ras' => 'required|string|max:255',
+        ]);
+
+        $ras = RasHewan::findOrFail($id);
+        $ras->update([
+            'nama_ras' => $validated['nama_ras'],
+        ]);
+
+        return redirect()->route('datarashewan')->with('success', 'Ras Hewan berhasil diupdate');
     }
 }
