@@ -201,8 +201,6 @@
                     console.log(data);
                     // Fill form with user data
                     document.getElementById('edit_idkode').value = data.idkode_tindakan_terapi;
-                    // document.getElementById('edit_idkategori').value = data.idkategori;
-                    // document.getElementById('edit_idkategori_klinis').value = data.idkategori_klinis;
                     document.getElementById('nama_update').value = data.deskripsi_tindakan_terapi;
                     document.getElementById('kategori_update').value = data.idkategori;
                     document.getElementById('kategori_klinis_update').value = data.idkategori_klinis;

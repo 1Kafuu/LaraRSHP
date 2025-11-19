@@ -68,6 +68,9 @@ Route::middleware(['akses:1'])->group(function () {
     Route::delete('deleteKode/{id}', [KodeTindakanController::class, 'deleteKode'])->name('deleteKode');
     Route::get('getKodeTindakanbyId/{id}', [KodeTindakanController::class, 'getKodeTindakanbyId'])->name('getKodeTindakanbyId');
     Route::put('updateKode/{id}', [KodeTindakanController::class, 'updateKode'])->name('updateKode');
+    Route::get('getRoleUserbyId/{id}', [RoleUserController::class, 'getRoleUserbyId'])->name('getRoleUserbyId');
+    Route::put('updateRoleUser/{id}', [RoleUserController::class, 'updateRoleUser'])->name('updateRoleUser');
+    Route::delete('deleteRoleUser/{id}', [RoleUserController::class, 'deleteRoleUser'])->name('deleteRoleUser');
 });
 
 Route::middleware(['akses:1,4'])->group(function () {

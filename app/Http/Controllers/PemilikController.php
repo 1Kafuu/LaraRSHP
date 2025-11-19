@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Pemilik;
+use App\Models\RoleUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -44,10 +45,16 @@ class PemilikController extends Controller
                 'password' => bcrypt($validated['password']),
             ]);
 
-            $lastId = User::max('iduser');
+            $userId = $user->iduser;
+
+            DB::table('role_user')->insert([
+                'iduser' => $userId,
+                'idrole' => 5,        // role pemilik
+                'status' => 1,        // aktif
+            ]);
 
             Pemilik::create([
-                'iduser' => $lastId,
+                'iduser' => $userId,
                 'no_wa' => $validated['no_wa'],
                 'alamat' => $validated['alamat'],
             ]);
@@ -60,6 +67,8 @@ class PemilikController extends Controller
     {
         $pemilik = Pemilik::with('user')->findOrFail($id);
         $pemilik->delete();
+        $role = RoleUser::where('iduser', $pemilik->user->iduser);
+        $role->delete();
         $pemilik->user->delete();
 
         return redirect()->route('datapemilik')->with('success', 'Pemilik berhasil dihapus');
@@ -89,8 +98,9 @@ class PemilikController extends Controller
 
         $role = Pemilik::findOrFail($id);
         $role->update([
-            'no_wa' => $validated['no_wa'], 
-            'alamat' => $validated['alamat']]);
+            'no_wa' => $validated['no_wa'],
+            'alamat' => $validated['alamat']
+        ]);
 
         return redirect()->route('datapemilik')->with('success', 'Pemilik berhasil diupdate');
     }
