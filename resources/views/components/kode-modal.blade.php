@@ -78,7 +78,7 @@
 
 <!-- Update User Modal -->
 <div id="updateModal" style="display: none;"
-    class="fixed inset-0 z-50 hidden items-center justify-center backdrop-blur-sm transition-opacity duration-300">
+    class="fixed inset-0 z-100000 hidden items-center justify-center backdrop-blur-sm transition-opacity duration-300">
     <div class="bg-white rounded-lg shadow-xl w-full max-w-md mx-4 transform transition-all duration-300 scale-95 opacity-0 hidden"
         id="modalContent">
         <!-- Modal Header -->

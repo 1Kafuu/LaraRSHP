@@ -13,6 +13,7 @@ use App\Http\Controllers\RoleUserController;
 use App\Http\Controllers\JenisHewanController;
 use App\Http\Controllers\KodeTindakanController;
 use App\Http\Controllers\KategoriKlinisController;
+use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\TemuDokterController;
 
 Route::get('/', [SiteController::class, 'index'])->name('index');
@@ -80,6 +81,7 @@ Route::middleware(['akses:1'])->group(function () {
     Route::post('createTemu', [TemuDokterController::class, 'createTemu'])->name('createTemu');
     Route::delete('deleteTemu/{id}', [TemuDokterController::class, 'deleteTemu'])->name('deleteTemu');
     Route::put('updateTemu/{id}', [TemuDokterController::class, 'updateTemu'])->name('updateTemu');
+    Route::get('datarekammedis', [RekamMedisController::class, 'getRekam'])->name('datarekam');
 });
 
 Route::middleware(['akses:1,4'])->group(function () {

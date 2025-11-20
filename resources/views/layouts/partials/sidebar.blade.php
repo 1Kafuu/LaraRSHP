@@ -264,8 +264,8 @@
                 </li>
 
                 <li>
-                  <a href="{{ route('datakategoriklinis') }}" class="menu-dropdown-item group"
-                    :class="page === 'datarekammedis' ? 'menu-dropdown-item-active' : 'menu-dropdown-item-inactive'">
+                  <a href="{{ route('datarekam') }}" class="menu-dropdown-item group"
+                    :class="page === 'datarekam' ? 'menu-dropdown-item-active' : 'menu-dropdown-item-inactive'">
                     Rekam Medis
                   </a>
                 </li>
