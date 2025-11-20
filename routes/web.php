@@ -13,6 +13,7 @@ use App\Http\Controllers\RoleUserController;
 use App\Http\Controllers\JenisHewanController;
 use App\Http\Controllers\KodeTindakanController;
 use App\Http\Controllers\KategoriKlinisController;
+use App\Http\Controllers\TemuDokterController;
 
 Route::get('/', [SiteController::class, 'index'])->name('index');
 
@@ -75,6 +76,10 @@ Route::middleware(['akses:1'])->group(function () {
     Route::get('getRasbyId/{id}', [RasHewanController::class, 'getRasbyId'])->name('getRasbyId');
     Route::put('updateRas/{id}', [RasHewanController::class, 'updateRas'])->name('updateRas');
     Route::delete('deleteRas/{id}', [RasHewanController::class, 'deleteRas'])->name('deleteRas');
+    Route::get('datatemu', [TemuDokterController::class, 'getTemu'])->name('datatemu');
+    Route::post('createTemu', [TemuDokterController::class, 'createTemu'])->name('createTemu');
+    Route::delete('deleteTemu/{id}', [TemuDokterController::class, 'deleteTemu'])->name('deleteTemu');
+    Route::put('updateTemu/{id}', [TemuDokterController::class, 'updateTemu'])->name('updateTemu');
 });
 
 Route::middleware(['akses:1,4'])->group(function () {

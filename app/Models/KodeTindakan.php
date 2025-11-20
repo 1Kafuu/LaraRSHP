@@ -20,4 +20,8 @@ class KodeTindakan extends Model
     public function kategori_klinis() {
         return $this->belongsTo(KategoriKlinis::class, 'idkategori_klinis', 'idkategori_klinis');
     }
+
+    public function detail_rekam(){
+        return $this->hasMany(DetailRekam::class, 'idkode_tindakan_terapi', 'idkode_tindakan_terapi');
+    }
 }

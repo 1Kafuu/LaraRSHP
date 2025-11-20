@@ -20,4 +20,8 @@ class Pet extends Model
     public function rashewan(){
         return $this->belongsTo(RasHewan::class,'idras_hewan', 'idras_hewan');
     }
+
+    public function temudokter() {
+        return $this->hasMany(temuDokter::class, 'idpet', 'idpet');
+    }
 }

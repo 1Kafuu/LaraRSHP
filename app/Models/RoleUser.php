@@ -20,4 +20,8 @@ class RoleUser extends Model
     {
         return $this->belongsTo(Role::class, 'idrole', 'idrole');
     }
+
+    public function temudokter(){
+        return $this->hasMany(temuDokter::class, 'idrole_user', 'idrole_user');
+    }
 }

@@ -231,7 +231,48 @@
             </div>
             <!-- Dropdown Menu End -->
           </li>
-          <!-- Menu Item Tindakan Medis -->
+          <!-- Menu Item Temu Dokter -->
+          <li>
+            <a href="#" @click.prevent="selected = (selected === 'Riwayat Periksa' ? '':'Riwayat Periksa')" class="menu-item group"
+              :class="(selected === 'Riwayat Periksa') || (page === 'datatemu' || page === 'datarekammedis') ? 'menu-item-active' : 'menu-item-inactive'">
+              <svg
+                :class="(selected === 'Tindakan Medis') || (page === 'datatemu' || page === 'datarekammedis') ? 'menu-item-icon-active'  :'menu-item-icon-inactive'"
+                width="22" height="24" viewBox="-5 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+               <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="medical-receipt-3" transform="translate(-2 -2)"> <rect id="secondary" fill="#2ca9bc" width="10" height="5" rx="2.5" transform="translate(10.968 18.501) rotate(-45)"></rect> <path id="primary" d="M7,8h6M7,12h4m5.73.73a2.52,2.52,0,0,1,3.54,0h0a2.52,2.52,0,0,1,0,3.54l-4,4a2.52,2.52,0,0,1-3.54,0h0a2.52,2.52,0,0,1,0-3.54ZM18.2,18.2l-3.4-3.4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path> <path id="primary-2" data-name="primary" d="M8,21H4a1,1,0,0,1-1-1V4A1,1,0,0,1,4,3H16a1,1,0,0,1,1,1V8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path> </g> </g>
+              </svg>
+
+              <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''">
+                Riwayat Periksa
+              </span>
+
+              <svg class="menu-item-arrow absolute right-2.5 top-1/2 -translate-y-1/2 stroke-current"
+                :class="[(selected === 'Riwayat Periksa') ? 'menu-item-arrow-active' : 'menu-item-arrow-inactive', sidebarToggle ? 'lg:hidden' : '' ]"
+                width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4.79175 7.39584L10.0001 12.6042L15.2084 7.39585" stroke="" stroke-width="1.5"
+                  stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </a>
+
+            <!-- Dropdown Menu Start -->
+            <div class="overflow-hidden transform translate" :class="(selected === 'Riwayat Periksa') ? 'block' :'hidden'">
+              <ul :class="sidebarToggle ? 'lg:hidden' : 'flex'" class="flex flex-col gap-1 mt-2 menu-dropdown pl-9">
+                <li>
+                  <a href="{{ route('datatemu') }}" class="menu-dropdown-item group"
+                    :class="page === 'datatemu' ? 'menu-dropdown-item-active' : 'menu-dropdown-item-inactive'">
+                    Temu Dokter
+                  </a>
+                </li>
+
+                <li>
+                  <a href="{{ route('datakategoriklinis') }}" class="menu-dropdown-item group"
+                    :class="page === 'datarekammedis' ? 'menu-dropdown-item-active' : 'menu-dropdown-item-inactive'">
+                    Rekam Medis
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <!-- Dropdown Menu End -->
+          </li>
         </ul>
       </div>
     </nav>

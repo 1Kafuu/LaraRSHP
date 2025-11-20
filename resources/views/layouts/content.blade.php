@@ -5,6 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport"
     content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+  <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+  <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
   @vite(['resources/css/app.css'])
 
   <!-- Alpine Plugins -->
@@ -47,21 +49,21 @@
 
       <!-- ===== Main Content Start ===== -->
       <main>
-          <div class="mx-auto max-w-(--breakpoint-2xl) p-4 md:p-6">
-            <!-- Breadcrumb Start -->
-            <div x-data="{ pageName: `@yield('path')`}">
-              @include('layouts.partials.breadcrumb')
-            </div>
-            <!-- Breadcrumb End -->
+        <div class="mx-auto max-w-(--breakpoint-2xl) p-4 md:p-6">
+          <!-- Breadcrumb Start -->
+          <div x-data="{ pageName: `@yield('path')`}">
+            @include('layouts.partials.breadcrumb')
+          </div>
+          <!-- Breadcrumb End -->
 
-            <div
-              class="min-h-screen rounded-2xl border border-gray-200 bg-white px-5 py-7 dark:border-gray-800 dark:bg-white/[0.03] xl:px-10 xl:py-12">
-              <div class="mx-auto w-full">
-                @yield('content')
-              </div>
+          <div
+            class="min-h-screen rounded-2xl border border-gray-200 bg-white px-5 py-7 dark:border-gray-800 dark:bg-white/[0.03] xl:px-10 xl:py-12">
+            <div class="mx-auto w-full">
+              @yield('content')
             </div>
           </div>
-        </main>
+        </div>
+      </main>
       <!-- ===== Main Content End ===== -->
     </div>
     <!-- ===== Content Area End ===== -->

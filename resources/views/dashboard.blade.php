@@ -45,7 +45,7 @@
       <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100  dark:border-gray-800 dark:bg-white/[0.03] hover:shadow-md transition">
         <div class="flex items-center justify-between">
           <div>
-            <p class="text-sm text-gray-500  dark:text-gray-100 font-medium">Total Pengguna</p>
+            <p class="text-sm text-gray-500  dark:text-gray-100 font-medium">Total Pasien</p>
             <p class="text-2xl font-bold text-gray-800  dark:text-gray-100 mt-1">1,248</p>
             <p class="text-xs text-green-600 mt-2">↑ 12% dari bulan lalu</p>
           </div>
@@ -67,7 +67,7 @@
       <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition">
         <div class="flex items-center justify-between">
           <div>
-            <p class="text-sm text-gray-500 font-medium">Proyek Aktif</p>
+            <p class="text-sm text-gray-500 font-medium">Rekam Medis</p>
             <p class="text-2xl font-bold text-gray-800 mt-1">24</p>
             <p class="text-xs text-orange-600 mt-2">2 menunggu review</p>
           </div>
@@ -78,7 +78,7 @@
       <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition">
         <div class="flex items-center justify-between">
           <div>
-            <p class="text-sm text-gray-500 font-medium">Tiket Baru</p>
+            <p class="text-sm text-gray-500 font-medium">Jadwal Temu Baru</p>
             <p class="text-2xl font-bold text-gray-800 mt-1">7</p>
             <p class="text-xs text-red-600 mt-2">Perlu tindak lanjut</p>
           </div>
@@ -91,13 +91,13 @@
     <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
       <h3 class="text-lg font-semibold text-gray-800 mb-4">Aksi Cepat</h3>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <a href="#" class="flex flex-col items-center p-4 rounded-lg hover:bg-indigo-50 transition group">
+        <a href="{{ route('datauser') }}" class="flex flex-col items-center p-4 rounded-lg hover:bg-indigo-50 transition group">
           <i class="fas fa-user-plus text-2xl text-indigo-600 mb-2 group-hover:scale-110 transition"></i>
           <span class="text-sm font-medium text-gray-700">Tambah User</span>
         </a>
         <a href="#" class="flex flex-col items-center p-4 rounded-lg hover:bg-green-50 transition group">
           <i class="fas fa-file-alt text-2xl text-green-600 mb-2 group-hover:scale-110 transition"></i>
-          <span class="text-sm font-medium text-gray-700">Buat Laporan</span>
+          <span class="text-sm font-medium text-gray-700">Buat Rekam Medis</span>
         </a>
         <a href="#" class="flex flex-col items-center p-4 rounded-lg hover:bg-purple-50 transition group">
           <i class="fas fa-cog text-2xl text-purple-600 mb-2 group-hover:scale-110 transition"></i>
