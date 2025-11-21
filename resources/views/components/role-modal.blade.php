@@ -55,7 +55,7 @@
 </el-dialog>
 
 <!-- Update User Modal -->
-<div id="updateModal" style="display: none;" class="fixed inset-0 z-10000 hidden items-center justify-center backdrop-blur-sm transition-opacity duration-300">
+<div id="updateModal" style="display: none;" class="fixed inset-0 z-10000 hidden items-center justify-center bg-gray-900/50 transition-opacity duration-300">
     <div class="bg-white rounded-lg shadow-xl w-full max-w-md mx-4 transform transition-all duration-300 scale-95 opacity-0 hidden" id="modalContent">
         <!-- Modal Header -->
         <div class="px-6 py-4 border-b border-gray-200">

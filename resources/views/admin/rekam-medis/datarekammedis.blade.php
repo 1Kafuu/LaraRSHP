@@ -12,54 +12,145 @@
     <div class="container-fluid py-4">
         <h1 class="mb-4 text-xl font-bold text-gray-800">Welcome to Data Rekam Medis</h1>
 
+        @if(session('success') || session('error'))
+            <div id="flash-message"
+                class="mb-6 mx-3 p-4 rounded-lg shadow-sm border {{ session('error') ? 'bg-red-50 border-red-200' : 'bg-green-50 border-green-200' }}">
+                <div class="flex items-start">
+                    <div class="flex-shrink-0">
+                        @if(session('error'))
+                            <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        @else
+                            <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        @endif
+                    </div>
+                    <div class="ml-3 flex-1">
+                        <p class="text-sm font-medium {{ session('error') ? 'text-red-800' : 'text-green-800' }}">
+                            {{ session('error') ?? session('success') }}
+                        </p>
+                    </div>
+                    <button onclick="document.getElementById('flash-message').remove()"
+                        class="ml-3 text-gray-400 hover:text-gray-600">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        @endif
+
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-5">
+            <!-- Header -->
+            <div class="flex justify-between items-center p-5 border-b border-gray-100">
+                <h5 class="text-lg font-semibold text-gray-800 mb-0">Temu Dokter List</h5>
+            </div>
+
+            <!-- Table -->
+            <div class="overflow-x-auto">
+                <table class="w-full table-auto">
+                    <!-- Table Head -->
+                    <thead class="bg-gray-50 text-indigo-700 font-semibold text-xs uppercase tracking-wider">
+                        <tr>
+                            <th class="px-6 py-3 text-left">No Urut</th>
+                            <th class="px-6 py-3 text-left">Tanggal</th>
+                            <th class="px-6 py-3 text-left">Pet</th>
+                            <th class="px-6 py-3 text-left">Dokter</th>
+                            <th class="px-6 py-3 text-left">Status</th>
+                            <th class="px-6 py-3 text-right pr-6">Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="divide-y divide-gray-100 text-sm">
+                        @forelse ($temu as $row)
+                            <tr class="hover:bg-indigo-50/30 transition-colors duration-200">
+
+                                <!-- No Urut dengan indikator tanggal -->
+                                <td class="px-6 py-4 font-medium text-gray-800">
+                                    <div class="flex items-center gap-2">
+                                        <span>{{ $row->no_urut }}</span>
+                                        @if(\Carbon\Carbon::parse($row->waktu_daftar)->isToday())
+                                            <span class="text-xs text-blue-600 bg-blue-100 px-2 py-1 rounded-full font-medium">
+                                                Today
+                                            </span>
+                                        @endif
+                                    </div>
+                                </td>
+
+                                <td class="px-6 py-4 font-medium text-gray-800">
+                                    {{ $row->waktu_daftar }}
+                                </td>
+
+                                <td class="px-6 py-4 font-medium text-gray-800">
+                                    {{ $row->nama_pet }}
+                                </td>
+
+                                <td class="px-6 py-4 font-medium text-gray-800">
+                                    {{ $row->nama }}
+                                </td>
+
+                                <td class="px-6 py-4 font-medium text-gray-800">
+                                    <div class="flex items-center">
+                                        @php
+                                            $status = trim(strtolower(htmlspecialchars($row->status)));
+                                            $bgColor = $status === 'complete' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800';
+                                            $borderColor = $status === 'complete' ? 'border-green-400' : 'border-yellow-400';
+                                        @endphp
+
+                                        <span
+                                            class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border {{ $bgColor }} {{ $borderColor }}">
+                                            {{ htmlspecialchars($row->status) }}
+                                        </span>
+                                    </div>
+                                </td>
+
+                                <!-- Action Buttons -->
+                                <td class="px-6 py-4 text-right">
+                                    <div class="flex justify-end items-center gap-1">
+                                        <!-- Edit Button -->
+                                        <button type="button" onclick="openCreateModal({{ $row->idreservasi_dokter }})"
+                                            class="w-8 h-8 rounded-full border border-green-600 text-green-600 hover:bg-green-600 hover:text-white btn-transition flex items-center justify-center"
+                                            title="Tambah Data">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="6" class="px-6 py-12 text-center text-gray-500 text-base">
+                                    <div class="flex flex-col items-center">
+                                        <svg class="w-12 h-12 text-gray-300 mb-3" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4">
+                                            </path>
+                                        </svg>
+                                        <p class="font-medium">Tidak ada data antrian.</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
         <!-- Card Container -->
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
             <!-- Header -->
             <div class="flex justify-between items-center p-5 border-b border-gray-100">
                 <h5 class="text-lg font-semibold text-gray-800 mb-0">Rekam Medis List</h5>
-                <button command="show-modal" commandfor="create-rekam"
-                    class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium px-4 py-2 rounded-full shadow-sm transition-colors flex items-center gap-2">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                    </svg>
-                    Add Rekam Medis
-                </button>
             </div>
-
-            @if(session('success') || session('error'))
-                <div id="flash-message"
-                    class="mb-6 mx-3 p-4 rounded-lg shadow-sm border {{ session('error') ? 'bg-red-50 border-red-200' : 'bg-green-50 border-green-200' }}">
-                    <div class="flex items-start">
-                        <div class="flex-shrink-0">
-                            @if(session('error'))
-                                <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd"
-                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            @else
-                                <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd"
-                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            @endif
-                        </div>
-                        <div class="ml-3 flex-1">
-                            <p class="text-sm font-medium {{ session('error') ? 'text-red-800' : 'text-green-800' }}">
-                                {{ session('error') ?? session('success') }}
-                            </p>
-                        </div>
-                        <button onclick="document.getElementById('flash-message').remove()"
-                            class="ml-3 text-gray-400 hover:text-gray-600">
-                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            @endif
 
             <!-- Table -->
             <div class="overflow-x-auto">
@@ -138,7 +229,8 @@
                                         </button>
 
                                         <!-- Delete Button -->
-                                        <form action="" method="POST" class="inline">
+                                        <form action="{{ route('deleteRekam', ['id' => $row->idrekam_medis]) }}" method="POST"
+                                            class="inline">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit"
@@ -165,8 +257,10 @@
                                                 d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4">
                                             </path>
                                         </svg>
-                                        <p class="font-medium">Tidak ada data role.</p>
-                                        <p class="text-sm text-gray-400 mt-1">Klik "Add Role" untuk menambahkan data baru.</p>
+                                        <p class="font-medium">Tidak ada data rekam medis.</p>
+                                        <p class="text-sm text-gray-400 mt-1">Klik "Add Rekam Medis" untuk menambahkan data
+                                            baru.
+                                        </p>
                                     </div>
                                 </td>
                             </tr>
@@ -178,10 +272,86 @@
     </div>
 @endsection
 
-<x-rekam-modal />
+@section('modal')
+    <x-rekam-modal :tindakan="$tindakan" />
+@endsection
 
 @push('scripts')
     <script>
+        // Open Create Modal
+        function openCreateModal(temuId) {
+
+            const modal = document.getElementById('createModal');
+            const modalContent = document.getElementById('createContent');
+
+            if (!modal) {
+                return;
+            }
+
+            // Show modal
+            modal.style.display = 'flex';
+            modal.classList.remove('hidden');
+
+            // Trigger animation
+            setTimeout(() => {
+                modalContent.classList.remove('hidden', 'scale-95', 'opacity-0');
+                modalContent.classList.add('scale-100', 'opacity-100');
+            }, 10);
+
+            // Fetch user data
+            fetch(`/getTemuById/${temuId}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok: ' + response.status);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data);
+                    // Fill form with user data
+                    document.getElementById('idtemu').value = data.idreservasi_dokter;
+                    document.getElementById('idpet').value = data.idpet;
+                    document.getElementById('idrole_user').value = data.idrole_user;
+                })
+                .catch(error => {
+                    console.error('Fetch error:', error);
+                    alert('Gagal memuat data user: ' + error.message);
+                });
+        }
+
+        function closeCreateModal() {
+            const modal = document.getElementById('createModal');
+            const modalContent = document.getElementById('createContent');
+
+            if (modal) {
+                // Add closing animation
+                modalContent.classList.remove('scale-100', 'opacity-100');
+                modalContent.classList.add('scale-95', 'opacity-0');
+
+                // Hide modal after animation
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    modal.classList.add('hidden');
+                }, 200);
+            }
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('click', function (event) {
+            const modal = document.getElementById('createModal');
+            if (event.target === modal) {
+                closeCreateModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                closeCreateModal();
+            }
+        });
+
+        // Open edit modal
         function openEditModal(rekamId) {
 
             const modal = document.getElementById('updateModal');
@@ -197,12 +367,12 @@
 
             // Trigger animation
             setTimeout(() => {
-                modalContent.classList.remove('hidden','scale-95', 'opacity-0');
+                modalContent.classList.remove('hidden', 'scale-95', 'opacity-0');
                 modalContent.classList.add('scale-100', 'opacity-100');
             }, 10);
 
             // Fetch user data
-            fetch(`/getRolebyId/${rekamId}`)
+            fetch(`/getRekamById/${rekamId}`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok: ' + response.status);
@@ -210,14 +380,19 @@
                     return response.json();
                 })
                 .then(data => {
+                    console.log(data);
 
                     // Fill form with user data
-                    document.getElementById('edit_idrole').value = data.idrole;
-                    document.getElementById('nama_update').value = data.nama_role;
+                    document.getElementById('edit_idrekam').value = data[0].idrekam_medis;
+                    document.getElementById('anamnesa_update').value = data[0].anamnesa;
+                    document.getElementById('temuan_update').value = data[0].temuan_klinis;
+                    document.getElementById('diagnosa_update').value = data[0].diagnosa;
+                    document.getElementById('detail_update').value = data[0].detail;
+                    document.getElementById('tindakan_update').value = data[0].idkode_tindakan_terapi;
 
                     // Update form action
                     const form = document.getElementById('updateForm');
-                    form.action = `/updateRole/${data.idrole}`;
+                    form.action = `/updateRekam/${data[0].idrekam_medis}`;
                 })
                 .catch(error => {
                     console.error('Fetch error:', error);
@@ -262,7 +437,7 @@
         function openDetailModal(rekamId) {
 
             const modal = document.getElementById('detailModal');
-            const modalContent = document.getElementById('modalContent');
+            const modalContent = document.getElementById('detailContent');
 
             if (!modal) {
                 return;
@@ -274,12 +449,12 @@
 
             // Trigger animation
             setTimeout(() => {
-                modalContent.classList.remove('hidden','scale-95', 'opacity-0');
+                modalContent.classList.remove('hidden', 'scale-95', 'opacity-0');
                 modalContent.classList.add('scale-100', 'opacity-100');
             }, 10);
 
             // Fetch user data
-            fetch(`/getRolebyId/${rekamId}`)
+            fetch(`/getRekamById/${rekamId}`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok: ' + response.status);
@@ -287,10 +462,17 @@
                     return response.json();
                 })
                 .then(data => {
-
                     // Fill form with user data
-                    document.getElementById('edit_idrole').value = data.idrole;
-                    document.getElementById('nama_update').value = data.nama_role;
+                    document.getElementById('idrekam').value = data[0].idrekam;
+                    document.getElementById('anamnesa').value = data[0].anamnesa;
+                    document.getElementById('temuan').value = data[0].temuan_klinis;
+                    document.getElementById('diagnosa').value = data[0].diagnosa;
+                    document.getElementById('hewan').value = data[0].nama_pet;
+                    document.getElementById('dokter').value = data[0].nama;
+                    document.getElementById('detail').value = data[0].detail;
+                    document.getElementById('kategori').value = data[0].nama_kategori;
+                    document.getElementById('kategori_klinis').value = data[0].nama_kategori_klinis;
+                    document.getElementById('tindakan').value = data[0].deskripsi_tindakan_terapi;
                 })
                 .catch(error => {
                     console.error('Fetch error:', error);
@@ -300,7 +482,7 @@
 
         function closeDetailModal() {
             const modal = document.getElementById('detailModal');
-            const modalContent = document.getElementById('modalContent');
+            const modalContent = document.getElementById('detailContent');
 
             if (modal) {
                 // Add closing animation
@@ -319,14 +501,14 @@
         document.addEventListener('click', function (event) {
             const modal = document.getElementById('detailModal');
             if (event.target === modal) {
-                closeUpdateModal();
+                closeDetailModal();
             }
         });
 
         // Close modal with Escape key
         document.addEventListener('keydown', function (event) {
             if (event.key === 'Escape') {
-                closeUpdateModal();
+                closeDetailModal();
             }
         });
     </script>

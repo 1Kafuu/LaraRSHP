@@ -82,6 +82,11 @@ Route::middleware(['akses:1'])->group(function () {
     Route::delete('deleteTemu/{id}', [TemuDokterController::class, 'deleteTemu'])->name('deleteTemu');
     Route::put('updateTemu/{id}', [TemuDokterController::class, 'updateTemu'])->name('updateTemu');
     Route::get('datarekammedis', [RekamMedisController::class, 'getRekam'])->name('datarekam');
+    Route::get('getRekamById/{id}', [RekamMedisController::class, 'getRekamById'])->name('getRekamById');
+    Route::delete('deleteRekam/{id}', [RekamMedisController::class, 'deleteRekam'])->name('deleteRekam');
+    Route::get('getTemuById/{id}', [RekamMedisController::class, 'getTemuById'])->name('getTemuById');
+    Route::post('createRekam', [RekamMedisController::class, 'createRekam'])->name('createRekam');
+    Route::put('updateRekam/{id}', [RekamMedisController::class, 'updateRekam'])->name('updateRekam');
 });
 
 Route::middleware(['akses:1,4'])->group(function () {

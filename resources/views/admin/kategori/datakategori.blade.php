@@ -25,40 +25,40 @@
                 </button>
             </div>
 
-             @if(session('success') || session('error'))
-                    <div id="flash-message"
-                        class="mb-6 mx-3 p-4 rounded-lg shadow-sm border {{ session('error') ? 'bg-red-50 border-red-200' : 'bg-green-50 border-green-200' }}">
-                        <div class="flex items-start">
-                            <div class="flex-shrink-0">
-                                @if(session('error'))
-                                    <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd"
-                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                @else
-                                    <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd"
-                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                @endif
-                            </div>
-                            <div class="ml-3 flex-1">
-                                <p class="text-sm font-medium {{ session('error') ? 'text-red-800' : 'text-green-800' }}">
-                                    {{ session('error') ?? session('success') }}
-                                </p>
-                            </div>
-                            <button onclick="document.getElementById('flash-message').remove()"
-                                class="ml-3 text-gray-400 hover:text-gray-600">
-                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M6 18L18 6M6 6l12 12" />
+            @if(session('success') || session('error'))
+                <div id="flash-message"
+                    class="mb-6 mx-3 p-4 rounded-lg shadow-sm border {{ session('error') ? 'bg-red-50 border-red-200' : 'bg-green-50 border-green-200' }}">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0">
+                            @if(session('error'))
+                                <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                                        clip-rule="evenodd" />
                                 </svg>
-                            </button>
+                            @else
+                                <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            @endif
                         </div>
+                        <div class="ml-3 flex-1">
+                            <p class="text-sm font-medium {{ session('error') ? 'text-red-800' : 'text-green-800' }}">
+                                {{ session('error') ?? session('success') }}
+                            </p>
+                        </div>
+                        <button onclick="document.getElementById('flash-message').remove()"
+                            class="ml-3 text-gray-400 hover:text-gray-600">
+                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
                     </div>
-                @endif
+                </div>
+            @endif
 
             <!-- Table -->
             <div class="overflow-x-auto">
@@ -101,7 +101,8 @@
                                         </button>
 
                                         <!-- Delete Button -->
-                                        <form action="{{ route('deleteKategori', ['id' => $row->idkategori]) }}" method="POST" class="inline">
+                                        <form action="{{ route('deleteKategori', ['id' => $row->idkategori]) }}" method="POST"
+                                            class="inline">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit"
@@ -142,7 +143,9 @@
     </div>
 @endsection
 
-<x-kategori-modal />
+@section('modal')
+    <x-kategori-modal />
+@endsection
 
 @push('scripts')
     <script>
@@ -161,7 +164,7 @@
 
             // Trigger animation
             setTimeout(() => {
-                modalContent.classList.remove('hidden','scale-95', 'opacity-0');
+                modalContent.classList.remove('hidden', 'scale-95', 'opacity-0');
                 modalContent.classList.add('scale-100', 'opacity-100');
             }, 10);
 
@@ -178,7 +181,7 @@
                     // Fill form with user data
                     document.getElementById('edit_idkategori').value = data.idkategori;
                     document.getElementById('nama_update').value = data.nama_kategori;
-                    
+
 
                     // Update form action
                     const form = document.getElementById('updateForm');

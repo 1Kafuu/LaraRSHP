@@ -197,7 +197,9 @@
     </div>
 @endsection
 
-<x-ras-modal :ras="$rasHewan" :jenis="$groupRas" />
+@section('modal')
+    <x-ras-modal :ras="$rasHewan" :jenis="$groupRas" />
+@endsection
 
 @push('scripts')
     <script>

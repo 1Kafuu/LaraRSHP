@@ -1,12 +1,92 @@
 @extends('layouts.content')
 
-@push('page')
-    '{{ $pageName ?? 'datauser' }}'
-@endpush
-
 @section('path', 'Data User')
 
 @section('title', 'Data User')
+
+@push('scripts')
+    <script>
+        function openEditModal(userId) {
+
+            const modal = document.getElementById('updateModal');
+            const modalContent = document.getElementById('modalContent');
+
+            if (!modal) {
+                return;
+            }
+
+            // Show modal
+            modal.style.display = 'flex';
+            modal.classList.remove('hidden');
+
+            // Trigger animation
+            setTimeout(() => {
+                modalContent.classList.remove('hidden', 'scale-95', 'opacity-0');
+                modalContent.classList.add('scale-100', 'opacity-100');
+            }, 10);
+
+            // Fetch user data
+            fetch(`/getUserbyId/${userId}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok: ' + response.status);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+
+                    // Fill form with user data
+                    document.getElementById('edit_iduser').value = data.iduser;
+                    document.getElementById('nama_update').value = data.nama;
+                    document.getElementById('email_update').value = data.email;
+
+                    // Update form action
+                    const form = document.getElementById('updateForm');
+                    form.action = `/updateUser/${data.iduser}`;
+                })
+                .catch(error => {
+                    console.error('Fetch error:', error);
+                    alert('Gagal memuat data user: ' + error.message);
+                });
+        }
+
+        function closeUpdateModal() {
+            const modal = document.getElementById('updateModal');
+            const modalContent = document.getElementById('modalContent');
+
+            if (modal) {
+                // Add closing animation
+                modalContent.classList.remove('scale-100', 'opacity-100');
+                modalContent.classList.add('scale-95', 'opacity-0');
+
+                // Hide modal after animation
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    modal.classList.add('hidden');
+                }, 200);
+            }
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('click', function (event) {
+            const modal = document.getElementById('updateModal');
+            if (event.target === modal) {
+                closeUpdateModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                closeUpdateModal();
+            }
+        });
+    </script>
+@endpush
+
+@push('page')
+    '{{ $pageName ?? 'datauser' }}'
+@endpush
 
 @section('content')
     <div class="container-fluid py-4">
@@ -95,7 +175,8 @@
                                                 </path>
                                             </svg>
                                         </button>
-                                        <form action="{{ route('deleteUser', ['id' => $row->iduser]) }}" method="POST" class="inline">
+                                        <form action="{{ route('deleteUser', ['id' => $row->iduser]) }}" method="POST"
+                                            class="inline">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit"
@@ -120,84 +201,6 @@
     </div>
 @endsection
 
-<x-user-modal />
-
-@push('scripts')
-    <script>
-        function openEditModal(userId) {
-
-            const modal = document.getElementById('updateModal');
-            const modalContent = document.getElementById('modalContent');
-
-            if (!modal) {
-                return;
-            }
-
-            // Show modal
-            modal.style.display = 'flex';
-            modal.classList.remove('hidden');
-
-            // Trigger animation
-            setTimeout(() => {
-                modalContent.classList.remove('hidden','scale-95', 'opacity-0');
-                modalContent.classList.add('scale-100', 'opacity-100');
-            }, 10);
-
-            // Fetch user data
-            fetch(`/getUserbyId/${userId}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok: ' + response.status);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-
-                    // Fill form with user data
-                    document.getElementById('edit_iduser').value = data.iduser;
-                    document.getElementById('nama_update').value = data.nama;
-                    document.getElementById('email_update').value = data.email;
-
-                    // Update form action
-                    const form = document.getElementById('updateForm');
-                    form.action = `/updateUser/${data.iduser}`;
-                })
-                .catch(error => {
-                    console.error('Fetch error:', error);
-                    alert('Gagal memuat data user: ' + error.message);
-                });
-        }
-
-        function closeUpdateModal() {
-            const modal = document.getElementById('updateModal');
-            const modalContent = document.getElementById('modalContent');
-
-            if (modal) {
-                // Add closing animation
-                modalContent.classList.remove('scale-100', 'opacity-100');
-                modalContent.classList.add('scale-95', 'opacity-0');
-
-                // Hide modal after animation
-                setTimeout(() => {
-                    modal.style.display = 'none';
-                    modal.classList.add('hidden');
-                }, 200);
-            }
-        }
-
-        // Close modal when clicking outside
-        document.addEventListener('click', function (event) {
-            const modal = document.getElementById('updateModal');
-            if (event.target === modal) {
-                closeUpdateModal();
-            }
-        });
-
-        // Close modal with Escape key
-        document.addEventListener('keydown', function (event) {
-            if (event.key === 'Escape') {
-                closeUpdateModal();
-            }
-        });
-    </script>
-@endpush
+@section('modal')
+    <x-user-modal />
+@endsection

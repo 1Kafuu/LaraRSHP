@@ -142,7 +142,9 @@
     </div>
 @endsection
 
-<x-jenis-modal />
+@section('modal')
+    <x-jenis-modal />
+@endsection
 
 @push('scripts')
     <script>

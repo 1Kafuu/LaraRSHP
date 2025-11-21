@@ -139,7 +139,9 @@
     </div>
 @endsection
 
-<x-role-modal />
+@section('modal')
+    <x-role-modal />
+@endsection
 
 @push('scripts')
     <script>

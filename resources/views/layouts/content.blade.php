@@ -1,12 +1,14 @@
-<!doctype html>
+<!Doctype html>
 <html lang="en" :class="{'dark': darkMode === true}">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport"
     content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
-  <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
-  <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+  <link rel="icon" href="{{ asset('icon.png') }}" type="image/x-icon">
+  <link rel="shortcut icon" href="{{ asset('icon.png') }}" type="image/x-icon">
+
   @vite(['resources/css/app.css'])
 
   <!-- Alpine Plugins -->
@@ -14,7 +16,8 @@
 
   <!-- Alpine Core -->
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+  @stack('scripts')
 
   <title>
     @yield('title')
@@ -69,7 +72,6 @@
     <!-- ===== Content Area End ===== -->
   </div>
   <!-- ===== Page Wrapper End ===== -->
-  @stack('scripts')
+  @yield('modal')
 </body>
-
 </html>

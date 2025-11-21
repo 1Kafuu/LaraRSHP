@@ -1,7 +1,7 @@
 @extends('layouts.content')
 
 @push('page')
-'{{ $pageName ?? 'datakodetindakan' }}'
+    '{{ $pageName ?? 'datakodetindakan' }}'
 @endpush
 
 @section('path', 'Data Tindakan')
@@ -16,8 +16,7 @@
             <!-- Header -->
             <div class="flex justify-between items-center p-5 border-b border-gray-100">
                 <h5 class="text-lg font-semibold text-gray-800 mb-0">Tindakan List</h5>
-                <button 
-                    command="show-modal" commandfor="create-kode" 
+                <button command="show-modal" commandfor="create-kode"
                     class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium px-4 py-2 rounded-full shadow-sm transition-colors flex items-center gap-2">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
@@ -99,14 +98,16 @@
 
                                 <!-- Kategori -->
                                 <td class="px-6 py-4">
-                                    <span class="inline-block px-3 py-1 text-xs font-medium text-teal-700 bg-teal-100 rounded-full">
+                                    <span
+                                        class="inline-block px-3 py-1 text-xs font-medium text-teal-700 bg-teal-100 rounded-full">
                                         {{ $row->kategori->nama_kategori ?? '-' }}
                                     </span>
                                 </td>
 
                                 <!-- Kategori Klinis -->
                                 <td class="px-6 py-4">
-                                    <span class="inline-block px-3 py-1 text-xs font-medium text-purple-700 bg-purple-100 rounded-full">
+                                    <span
+                                        class="inline-block px-3 py-1 text-xs font-medium text-purple-700 bg-purple-100 rounded-full">
                                         {{ $row->kategori_klinis->nama_kategori_klinis ?? '-' }}
                                     </span>
                                 </td>
@@ -115,9 +116,7 @@
                                 <td class="px-6 py-4 text-right">
                                     <div class="flex justify-end items-center gap-1">
                                         <!-- Edit Button -->
-                                        <button
-                                            type="button"
-                                            onclick="openEditModal({{ $row->idkode_tindakan_terapi }})"
+                                        <button type="button" onclick="openEditModal({{ $row->idkode_tindakan_terapi }})"
                                             class="w-8 h-8 rounded-full border border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white transition-all duration-200 flex items-center justify-center"
                                             title="Edit Tindakan">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -128,7 +127,8 @@
                                         </button>
 
                                         <!-- Delete Button -->
-                                        <form action="{{ route('deleteKode', ['id' => $row->idkode_tindakan_terapi]) }}" method="POST" class="inline">
+                                        <form action="{{ route('deleteKode', ['id' => $row->idkode_tindakan_terapi]) }}"
+                                            method="POST" class="inline">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit"
@@ -149,12 +149,15 @@
                             <tr>
                                 <td colspan="6" class="px-6 py-12 text-center text-gray-500 text-base">
                                     <div class="flex flex-col items-center">
-                                        <svg class="w-12 h-12 text-gray-300 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                                d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+                                        <svg class="w-12 h-12 text-gray-300 mb-3" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4">
+                                            </path>
                                         </svg>
                                         <p class="font-medium">Tidak ada data tindakan.</p>
-                                        <p class="text-sm text-gray-400 mt-1">Klik "Add Tindakan" untuk menambahkan data baru.</p>
+                                        <p class="text-sm text-gray-400 mt-1">Klik "Add Tindakan" untuk menambahkan data baru.
+                                        </p>
                                     </div>
                                 </td>
                             </tr>
@@ -166,7 +169,9 @@
     </div>
 @endsection
 
-<x-kode-modal :kategori="$kategori" :kategoriKlinis="$kategoriKlinis" />
+@section('modal')
+    <x-kode-modal :kategori="$kategori" :kategoriKlinis="$kategoriKlinis" />
+@endsection
 
 @push('scripts')
     <script>
@@ -185,7 +190,7 @@
 
             // Trigger animation
             setTimeout(() => {
-                modalContent.classList.remove('hidden','scale-95', 'opacity-0');
+                modalContent.classList.remove('hidden', 'scale-95', 'opacity-0');
                 modalContent.classList.add('scale-100', 'opacity-100');
             }, 10);
 
@@ -204,7 +209,7 @@
                     document.getElementById('nama_update').value = data.deskripsi_tindakan_terapi;
                     document.getElementById('kategori_update').value = data.idkategori;
                     document.getElementById('kategori_klinis_update').value = data.idkategori_klinis;
-                    
+
 
                     // Update form action
                     const form = document.getElementById('updateForm');

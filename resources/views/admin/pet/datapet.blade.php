@@ -172,7 +172,9 @@
     </div>
 @endsection
 
+@section('modal')
 <x-pet-modal :pemilik="$pemilik" :ras="$ras"/>
+@endsection
 
 @push('scripts')
     <script>

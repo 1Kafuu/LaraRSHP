@@ -101,7 +101,8 @@
                                         </button>
 
                                         <!-- Delete Button -->
-                                        <form action="{{ route('deleteKategoriKlinis', ['id' => $row->idkategori_klinis]) }}" method="POST" class="inline">
+                                        <form action="{{ route('deleteKategoriKlinis', ['id' => $row->idkategori_klinis]) }}"
+                                            method="POST" class="inline">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit"
@@ -142,7 +143,9 @@
     </div>
 @endsection
 
-<x-kategori-klinis-modal />
+@section('modal')
+    <x-kategori-klinis-modal />
+@endsection
 
 @push('scripts')
     <script>
@@ -161,7 +164,7 @@
 
             // Trigger animation
             setTimeout(() => {
-                modalContent.classList.remove('hidden','scale-95', 'opacity-0');
+                modalContent.classList.remove('hidden', 'scale-95', 'opacity-0');
                 modalContent.classList.add('scale-100', 'opacity-100');
             }, 10);
 
@@ -178,7 +181,7 @@
                     // Fill form with user data
                     document.getElementById('edit_idkategori').value = data.idkategori_klinis;
                     document.getElementById('nama_update').value = data.nama_kategori_klinis;
-                
+
                     // Update form action
                     const form = document.getElementById('updateForm');
                     form.action = `/updateKategoriKlinis/${data.idkategori_klinis}`;

@@ -8,7 +8,7 @@ class RekamMedis extends Model
 {
     protected $table = 'rekam_medis';
     protected $primaryKey = 'idrekam_medis';
-    protected $fillable = ['created_at', 'anamnesa', 'temuan_klinis', 'diagnosa', 'idpet', 'dokter_pemeriksa', 'reservasi_dokter'];
+    protected $fillable = ['created_at', 'anamnesa', 'temuan_klinis', 'diagnosa', 'idpet', 'dokter_pemeriksa', 'idreservasi_dokter'];
     public $timestamps =false;
 
     public function temudokter(){

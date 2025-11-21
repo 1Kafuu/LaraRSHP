@@ -171,7 +171,9 @@
     </div>
 @endsection
 
-<x-pemilik-modal />
+@section('modal')
+    <x-pemilik-modal />
+@endsection
 
 @push('scripts')
     <script>

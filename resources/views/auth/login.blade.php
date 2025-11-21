@@ -14,7 +14,9 @@
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
+    <link rel="icon" href="{{ asset('icon.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('icon.png') }}" type="image/x-icon">
+    
     @vite('resources/css/app.css')
 </head>
 
